@@ -29,31 +29,48 @@ void alphabeticalSort(string array[], int arraySize){
     }
 
 }
+
+
+
+void BSTIndexing::addWordPrivate(string key, node* Ptr){
+    Ptr->words[Ptr->wordIndex] = key;
+    Ptr->wordIndex++;
+}
+
+void BSTIndexing::addWord(string key, node* Ptr){
+    addWordPrivate(key, Ptr);
+}
+
+
+
+
+
     
-    BSTIndexing::BSTIndexing(){
-        root = NULL;
-    }
+BSTIndexing::BSTIndexing(){
+    root = NULL;
+}
 
 
     // CREATE LEAF
     //          * a leaf has no children *
-    BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
-        node* newNode = new node;
-        newNode->character = key[0];
-        charactersUsed[CharactersUsedIndex] = key[0];
-        CharactersUsedIndex++;
+BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
+    node* newNode = new node;
+    newNode->character = key[0];
+    charactersUsed[CharactersUsedIndex] = key[0];
+    CharactersUsedIndex++;
 
-        // NO need to sort the array in create leaf function
-        // sort it in the create node function
-        newNode->words[newNode->wordIndex] = key;
+    // NO need to sort the array in create leaf function
+    // sort it in the create node function
 
-        newNode->right = NULL;
-        newNode->left = NULL;
+    addWord(key,newNode);
 
-        
+    newNode->right = NULL;
+    newNode->left = NULL;
 
-        return newNode;
-    }
+    
+
+    return newNode;
+}
 
 
 
@@ -73,7 +90,7 @@ void alphabeticalSort(string array[], int arraySize){
             root->character = key[0];
 
             // save word to array of words for that letter
-            root->words[root->wordIndex] = key;
+            addWord(key, root);
 
             // sort word list
             alphabeticalSort(root->words, root->wordIndex);
@@ -87,8 +104,11 @@ void alphabeticalSort(string array[], int arraySize){
             } else {
                 Ptr->left = CreateLeaf(key);
             }
-        Ptr->left->words[wordIndex] = key;
+
+        addWord(key, Ptr->left);
+
         Ptr->left->character = key[0];
+
         alphabeticalSort(Ptr->left->words, Ptr->left->wordIndex);
 
         // if the first letter of the word passed is less than the first letter of the 
@@ -101,15 +121,27 @@ void alphabeticalSort(string array[], int arraySize){
                 Ptr->right = CreateLeaf(key);
             }
 
-        Ptr->right->words[wordIndex] = key;
+        addWord(key, Ptr->right);
         Ptr->right->character = key[0];
         alphabeticalSort(Ptr->right->words, Ptr->right->wordIndex);
 
 
-        // if key already exist
+        // if key already exist add word to that letter
         } else {
+            if ( root->character = key[0]){
+                addWord(key, root);
+            } else if ( Ptr->character == key[0] ){
+                addWord(key, Ptr);
+            } else if ( Ptr->left->character == key[0]){
+                addWord(key, Ptr->left);
+            } else if ( Ptr->right->character == key[0]){
+                addWord(key, Ptr->right);
+            }
             cout << "key [" << key << "] has ALREADY been added to tree" << endl;
         }
 
 
     }
+
+
+
