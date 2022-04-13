@@ -2,22 +2,30 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
-void alphabeticalSort(string array[], int arraySize){
+void alphabeticalSort(string array[], int arraySize, int lineNumberArray[] ){
     string smallestElement;
+    int indexSmallestElement;
+
     int index;
     string temp;
+    int temp1;
+    int index1;
 
     cout << endl << "sorting Array of Strings of strings..." << endl;
 
     for (int i = 0; i < arraySize - 1; i++){
         smallestElement = array[i];
+        indexSmallestElement = lineNumberArray[i];
         for (int j = i; j < arraySize; j++){
 
             if (array[j] <=  smallestElement){
                 smallestElement = array[j];
+                indexSmallestElement = lineNumberArray[j];
+                index1 = j;
                 index = j;
             }
         }
@@ -25,18 +33,25 @@ void alphabeticalSort(string array[], int arraySize){
         temp = array[i];
         array[i] = array[index];
         array[index] = temp;
+
+        temp1 = lineNumberArray[i];
+        lineNumberArray[i] = lineNumberArray[index1];
+        lineNumberArray[index1] = temp1;
     }
 
 }
 
 
-void BSTIndexing::addWordPrivate(string key, node* Ptr){
+void BSTIndexing::addWordPrivate(string key, node* Ptr, int lineNumber){
     Ptr->words[Ptr->wordIndex] = key;
     Ptr->wordIndex++;
+
+    Ptr->lineNumber[Ptr->lineNumberIndex] = lineNumber;
+    Ptr->lineNumberIndex++;
 }
 
-void BSTIndexing::addWord(string key, node* Ptr){
-    addWordPrivate(key, Ptr);
+void BSTIndexing::addWord(string key, node* Ptr, int lineNumber){
+    addWordPrivate(key, Ptr, lineNumber);
 }
 
     
@@ -47,16 +62,18 @@ BSTIndexing::BSTIndexing(){
 
     // CREATE LEAF
     //          * a leaf has no children *
-BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
+BSTIndexing::node* BSTIndexing::CreateLeaf(string key, int lineNumber){
     node* newNode = new node;
     newNode->character = key[0];
         // save character 
 
     // save word to array of words for that letter
-    addWord(key, newNode);
+    addWord(key, newNode, lineNumber);
+
+
 
     // sort word list
-    alphabeticalSort(newNode->words, newNode->wordIndex);
+    alphabeticalSort(newNode->words, newNode->wordIndex, newNode->lineNumber);
 
     // NO need to sort the array in create leaf function
     // sort it in the create node function
@@ -70,16 +87,16 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
 }
 
 
-    void BSTIndexing::AddLeaf(string key){
-        AddLeafPrivate(key, root);
+    void BSTIndexing::AddLeaf(string key, int lineNumber){
+        AddLeafPrivate(key, root, lineNumber);
     }
 
 
-    void BSTIndexing::AddLeafPrivate(string key, node* Ptr){
+    void BSTIndexing::AddLeafPrivate(string key, node* Ptr, int lineNumber){
 
         // if there is not root -> TREE DOESNT EXIST
         if (root == NULL){
-            root = CreateLeaf(key);
+            root = CreateLeaf(key, lineNumber);
 
         // if the first letter of the word passed is less than the first letter of the 
         // pointer passed
@@ -87,10 +104,10 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
 
             if (Ptr->left != NULL){
                 
-                AddLeafPrivate(key, Ptr->left);
+                AddLeafPrivate(key, Ptr->left, lineNumber);
 
             } else {
-                Ptr->left = CreateLeaf(key);
+                Ptr->left = CreateLeaf(key, lineNumber);
             }    
 
         // if the first letter of the word passed is less than the first letter of the 
@@ -99,18 +116,18 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
 
             if (Ptr->right != NULL) {
 
-                AddLeafPrivate(key, Ptr->right);
+                AddLeafPrivate(key, Ptr->right, lineNumber);
 
             } else {
-                Ptr->right = CreateLeaf(key);
+                Ptr->right = CreateLeaf(key, lineNumber);
             }
 
         // if key already exist add word to that letter
         } else {
             if ( Ptr->character == key[0] ){
 
-                addWord(key, Ptr);
-                alphabeticalSort(Ptr->words, Ptr->wordIndex);
+                addWord(key, Ptr, lineNumber);
+                alphabeticalSort(Ptr->words, Ptr->wordIndex, Ptr->lineNumber);
                 cout << "Ptr" << endl;
 
             }
@@ -139,7 +156,7 @@ void BSTIndexing::printInorderPrivate(node* Ptr){
         cout << "~" << endl;
 
         for(int i = 0; i < Ptr->wordIndex; i++){
-            cout << Ptr->words[i] << endl;
+            cout << Ptr->words[i] << "..................(" << Ptr->lineNumber[i] << ")" << endl;
         }
 
         cout << endl;
@@ -161,7 +178,25 @@ void BSTIndexing::addAllWordsFromTextFile(string filename){
     string word;
     reader.open(filename);
     
-    while( reader >> word ){
-        AddLeaf(word);
+    // while( reader >> word ){
+    //     AddLeaf(word);
+    // }
+
+    string sentence;
+
+    int lineNumber = 0;
+
+    while(!reader.eof()){
+        cout << "LINE NUMBER [" << lineNumber << "]" << endl;
+        getline(reader, sentence);
+
+        stringstream iss(sentence);
+
+        lineNumber++;
+        
+        while (iss >> word){
+            AddLeaf(word, lineNumber);
+        }
+    
     }
 }

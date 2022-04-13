@@ -27,6 +27,7 @@ int main(){
     //     cout << Tree.returnWord(i) << endl;;
     // }
 
+
     Tree.addAllWordsFromTextFile("page.txt");
     Tree.printInOrder();
 
