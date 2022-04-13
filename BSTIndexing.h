@@ -27,6 +27,8 @@ class BSTIndexing{
         node* CreateLeaf(string key);
         void AddLeaf(string key);
         void addWord(string key, node* Ptr);
+        int returnWordArrayLength();
+        string returnWord(int index);
 
 
 };

@@ -122,7 +122,9 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
             }
 
         addWord(key, Ptr->right);
+
         Ptr->right->character = key[0];
+        
         alphabeticalSort(Ptr->right->words, Ptr->right->wordIndex);
 
 
@@ -130,12 +132,16 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
         } else {
             if ( root->character = key[0]){
                 addWord(key, root);
+                cout << "root" << endl;
             } else if ( Ptr->character == key[0] ){
                 addWord(key, Ptr);
+                cout << "Ptr" << endl;
             } else if ( Ptr->left->character == key[0]){
                 addWord(key, Ptr->left);
+                cout << "Ptr->left" << endl;
             } else if ( Ptr->right->character == key[0]){
                 addWord(key, Ptr->right);
+                cout << "Ptr->right" << endl;
             }
             cout << "key [" << key << "] has ALREADY been added to tree" << endl;
         }
@@ -144,4 +150,10 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
     }
 
 
+int BSTIndexing::returnWordArrayLength(){
+    return root->wordIndex;
+}
 
+string BSTIndexing::returnWord(int index){
+    return root->words[index];
+}
