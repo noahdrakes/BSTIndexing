@@ -12,16 +12,24 @@ class BSTIndexing{
             string words[1000];
             node* left;
             node* right;
+            int wordIndex = 0;
         };
 
         node* root;
 
         char charactersUsed[26];
 
-    public:
+        void AddLeafPrivate(string key, node* Ptr);
 
+    public:
+        
         BSTIndexing();
         node* CreateLeaf(string key);
-        void addUsedCharacterToArray(char input);
+        void AddLeaf(string key);
+
 
 };
+
+
+void alphabeticalSort(string array[], int arraySize);
+    
