@@ -123,16 +123,27 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
         // if key already exist add word to that letter
         } else {
             if ( root->character = key[0]){
+
                 addWord(key, root);
+                alphabeticalSort(root->words, root->wordIndex);
                 cout << "root" << endl;
+
             } else if ( Ptr->character == key[0] ){
+
                 addWord(key, Ptr);
+                alphabeticalSort(Ptr->words, Ptr->wordIndex);
                 cout << "Ptr" << endl;
+
             } else if ( Ptr->left->character == key[0]){
+
                 addWord(key, Ptr->left);
+                alphabeticalSort(Ptr->left->words, Ptr->wordIndex);
                 cout << "Ptr->left" << endl;
+
             } else if ( Ptr->right->character == key[0]){
+
                 addWord(key, Ptr->right);
+                alphabeticalSort(Ptr->right->words, Ptr->wordIndex);
                 cout << "Ptr->right" << endl;
             }
             cout << "key [" << key << "] has ALREADY been added to tree" << endl;
