@@ -155,3 +155,13 @@ void BSTIndexing::printInorderPrivate(node* Ptr){
 void BSTIndexing::printInOrder(){
     printInorderPrivate(root);
 }
+
+void BSTIndexing::addAllWordsFromTextFile(string filename){
+    fstream reader;
+    string word;
+    reader.open(filename);
+    
+    while( reader >> word ){
+        AddLeaf(word);
+    }
+}

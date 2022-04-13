@@ -1,4 +1,5 @@
 #include <string>
+#include <fstream>
 
 using namespace std;
 class BSTIndexing{
@@ -22,7 +23,7 @@ class BSTIndexing{
         void AddLeafPrivate(string key, node* Ptr);
         void addWordPrivate(string key, node* Ptr);
         void printInorderPrivate(node* Ptr);
-        
+
     public:
         
         BSTIndexing();
@@ -32,6 +33,7 @@ class BSTIndexing{
         int returnWordArrayLength();
         string returnWord(int index);
         void printInOrder();
+        void addAllWordsFromTextFile(string filename);
 
 
 };
