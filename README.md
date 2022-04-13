@@ -1,9 +1,8 @@
 # BSTIndexing (CSIII Final Project)
 
-~How to Run~
-
-Compile Program by using g++ to compile 'BSTIndexing.cpp' file.
-Then run './a.out'.
+How to Run
+- Compile Program by using g++ to compiler 'BSTIndexing.cpp' file.
+- Run './a.out'.
 
 Reason For Choosing Data Structure
   BST
