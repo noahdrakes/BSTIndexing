@@ -50,13 +50,16 @@ BSTIndexing::BSTIndexing(){
 BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
     node* newNode = new node;
     newNode->character = key[0];
-    charactersUsed[CharactersUsedIndex] = key[0];
-    CharactersUsedIndex++;
+        // save character 
+
+    // save word to array of words for that letter
+    addWord(key, newNode);
+
+    // sort word list
+    alphabeticalSort(newNode->words, newNode->wordIndex);
 
     // NO need to sort the array in create leaf function
     // sort it in the create node function
-
-    addWord(key,newNode);
 
     newNode->right = NULL;
     newNode->left = NULL;
@@ -78,73 +81,38 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
         if (root == NULL){
             root = CreateLeaf(key);
 
-            // save character 
-            root->character = key[0];
-
-            // save word to array of words for that letter
-            addWord(key, root);
-
-            // sort word list
-            alphabeticalSort(root->words, root->wordIndex);
-
         // if the first letter of the word passed is less than the first letter of the 
         // pointer passed
         } else if (key[0] < Ptr->character) {
 
             if (Ptr->left != NULL){
+                
                 AddLeafPrivate(key, Ptr->left);
+
             } else {
                 Ptr->left = CreateLeaf(key);
-            }
-
-        addWord(key, Ptr->left);
-
-        Ptr->left->character = key[0];
-
-        alphabeticalSort(Ptr->left->words, Ptr->left->wordIndex);
+            }    
 
         // if the first letter of the word passed is less than the first letter of the 
         // pointer passed
         } else if (key[0] > Ptr->character){
 
             if (Ptr->right != NULL) {
+
                 AddLeafPrivate(key, Ptr->right);
+
             } else {
                 Ptr->right = CreateLeaf(key);
             }
 
-        addWord(key, Ptr->right);
-
-        Ptr->right->character = key[0];
-
-        alphabeticalSort(Ptr->right->words, Ptr->right->wordIndex);
-
-
         // if key already exist add word to that letter
         } else {
-            if ( root->character = key[0]){
-
-                addWord(key, root);
-                alphabeticalSort(root->words, root->wordIndex);
-                cout << "root" << endl;
-
-            } else if ( Ptr->character == key[0] ){
+            if ( Ptr->character == key[0] ){
 
                 addWord(key, Ptr);
                 alphabeticalSort(Ptr->words, Ptr->wordIndex);
                 cout << "Ptr" << endl;
 
-            } else if ( Ptr->left->character == key[0]){
-
-                addWord(key, Ptr->left);
-                alphabeticalSort(Ptr->left->words, Ptr->wordIndex);
-                cout << "Ptr->left" << endl;
-
-            } else if ( Ptr->right->character == key[0]){
-
-                addWord(key, Ptr->right);
-                alphabeticalSort(Ptr->right->words, Ptr->wordIndex);
-                cout << "Ptr->right" << endl;
             }
             cout << "key [" << key << "] has ALREADY been added to tree" << endl;
         }
