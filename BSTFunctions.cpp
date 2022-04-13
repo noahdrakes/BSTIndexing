@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 void alphabeticalSort(string array[], int arraySize){
     string smallestElement;
     int index;
@@ -31,7 +30,6 @@ void alphabeticalSort(string array[], int arraySize){
 }
 
 
-
 void BSTIndexing::addWordPrivate(string key, node* Ptr){
     Ptr->words[Ptr->wordIndex] = key;
     Ptr->wordIndex++;
@@ -40,10 +38,6 @@ void BSTIndexing::addWordPrivate(string key, node* Ptr){
 void BSTIndexing::addWord(string key, node* Ptr){
     addWordPrivate(key, Ptr);
 }
-
-
-
-
 
     
 BSTIndexing::BSTIndexing(){
@@ -73,11 +67,9 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
 }
 
 
-
     void BSTIndexing::AddLeaf(string key){
         AddLeafPrivate(key, root);
     }
-
 
 
     void BSTIndexing::AddLeafPrivate(string key, node* Ptr){
@@ -124,7 +116,7 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key){
         addWord(key, Ptr->right);
 
         Ptr->right->character = key[0];
-        
+
         alphabeticalSort(Ptr->right->words, Ptr->right->wordIndex);
 
 
