@@ -10,11 +10,13 @@ class BSTIndexing{
 
         struct node{
             char character;
-            string words[1000];
-            int lineNumber[1000];
             node* left;
             node* right;
+
+            string words[1000];
             int wordIndex = 0;
+
+            int lineNumber[1000];
             int lineNumberIndex = 0;
         };
 
@@ -32,6 +34,7 @@ class BSTIndexing{
         node* CreateLeaf(string key, int lineNumber);
         void AddLeaf(string key, int lineNumber);
         void addWord(string key, node* Ptr, int lineNumber);
+        
         int returnWordArrayLength();
         string returnWord(int index);
         void printInOrder();

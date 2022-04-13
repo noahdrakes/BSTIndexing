@@ -6,12 +6,15 @@
 
 using namespace std;
 
+
+// SELECTION SORT
 void alphabeticalSort(string array[], int arraySize, int lineNumberArray[] ){
     string smallestElement;
     int indexSmallestElement;
 
     int index;
     string temp;
+    
     int temp1;
     int index1;
 
