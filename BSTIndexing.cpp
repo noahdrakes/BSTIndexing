@@ -2,14 +2,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "BSTFunctions.cpp"
 
 using namespace std;
 
-struct node{
-    int data;
-    node* left;
-    node* right;
-};
 
 int main(){
 
