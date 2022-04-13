@@ -15,7 +15,6 @@ void alphabeticalSort(string array[], int arraySize, int lineNumberArray[] ){
     int temp1;
     int index1;
 
-    cout << endl << "sorting Array of Strings of strings..." << endl;
 
     for (int i = 0; i < arraySize - 1; i++){
         smallestElement = array[i];
@@ -81,8 +80,6 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key, int lineNumber){
     newNode->right = NULL;
     newNode->left = NULL;
 
-    
-
     return newNode;
 }
 
@@ -128,10 +125,8 @@ BSTIndexing::node* BSTIndexing::CreateLeaf(string key, int lineNumber){
 
                 addWord(key, Ptr, lineNumber);
                 alphabeticalSort(Ptr->words, Ptr->wordIndex, Ptr->lineNumber);
-                cout << "Ptr" << endl;
 
             }
-            cout << "key [" << key << "] has ALREADY been added to tree" << endl;
         }
 
 
@@ -147,6 +142,7 @@ string BSTIndexing::returnWord(int index){
 } 
 
 void BSTIndexing::printInorderPrivate(node* Ptr){
+    
     if (root != NULL){
         if (Ptr->left != NULL){
             printInorderPrivate(Ptr->left);
@@ -165,29 +161,30 @@ void BSTIndexing::printInorderPrivate(node* Ptr){
             printInorderPrivate(Ptr->right);
         }
     } else {
-        cout << "tree empty" << endl;
+        //tree empty
     }
 }
 
+
+
 void BSTIndexing::printInOrder(){
+    cout << endl << endl << endl << "INDEX OF WORDS IN PAGE.TXT FILE" << endl << endl;
     printInorderPrivate(root);
 }
+
+
 
 void BSTIndexing::addAllWordsFromTextFile(string filename){
     fstream reader;
     string word;
     reader.open(filename);
-    
-    // while( reader >> word ){
-    //     AddLeaf(word);
-    // }
 
     string sentence;
 
     int lineNumber = 0;
 
     while(!reader.eof()){
-        cout << "LINE NUMBER [" << lineNumber << "]" << endl;
+
         getline(reader, sentence);
 
         stringstream iss(sentence);
