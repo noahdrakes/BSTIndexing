@@ -159,4 +159,31 @@ int BSTIndexing::returnWordArrayLength(){
 
 string BSTIndexing::returnWord(int index){
     return root->words[index];
+} 
+
+void BSTIndexing::printInorderPrivate(node* Ptr){
+    if (root != NULL){
+        if (Ptr->left != NULL){
+            printInorderPrivate(Ptr->left);
+        } 
+
+        cout << Ptr->character << endl;
+        cout << "~" << endl;
+
+        for(int i = 0; i < Ptr->wordIndex; i++){
+            cout << Ptr->words[i] << endl;
+        }
+
+        cout << endl;
+
+        if (Ptr->right != NULL){
+            printInorderPrivate(Ptr->right);
+        }
+    } else {
+        cout << "tree empty" << endl;
+    }
+}
+
+void BSTIndexing::printInOrder(){
+    printInorderPrivate(root);
 }

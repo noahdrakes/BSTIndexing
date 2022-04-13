@@ -21,6 +21,8 @@ class BSTIndexing{
 
         void AddLeafPrivate(string key, node* Ptr);
         void addWordPrivate(string key, node* Ptr);
+        void printInorderPrivate(node* Ptr);
+        
     public:
         
         BSTIndexing();
@@ -29,6 +31,7 @@ class BSTIndexing{
         void addWord(string key, node* Ptr);
         int returnWordArrayLength();
         string returnWord(int index);
+        void printInOrder();
 
 
 };
