@@ -9,7 +9,6 @@ using namespace std;
 
 int main(){
     BSTIndexing Tree;
-    fstream reader;
     
     Tree.addAllWordsFromTextFile("page.txt");
     Tree.printInOrder();
